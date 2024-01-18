@@ -6,7 +6,16 @@
     "license": "MIT",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
+    "directories": {
+        "cli": "./lib/cli"
+    },
+    "bin": {
+        "fodec": "./bin/fodec.js"
+    },
     "scripts": {
+        "prepare": "npm run build",
+        "build": "tsc --build",
+        "watch": "tsc --watch",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "homepage": "https://github.com/kearisp/fodec#readme",
@@ -17,7 +26,15 @@
     "bugs": {
         "url": "https://github.com/kearisp/fodec/issues"
     },
+    "dependencies": {
+        "@kearisp/cli": "^1.0.4",
+        "@wocker/utils": "^1.0.2",
+        "fonteditor-core": "^2.3.2",
+        "fs": "^0.0.1-security",
+        "path": "^0.12.7"
+    },
     "devDependencies": {
+        "@types/node": "^20.11.5",
         "typescript": "^5.3.3"
     }
 }
