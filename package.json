@@ -1,0 +1,23 @@
+{
+    "name": "fodec",
+    "version": "1.0.0",
+    "author": "Kris Papercut <krispcut@gmail.com>",
+    "description": "",
+    "license": "MIT",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "homepage": "https://github.com/kearisp/fodec#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kearisp/fodec.git"
+    },
+    "bugs": {
+        "url": "https://github.com/kearisp/fodec/issues"
+    },
+    "devDependencies": {
+        "typescript": "^5.3.3"
+    }
+}
