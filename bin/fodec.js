@@ -2,7 +2,7 @@
 
 const {app} = require("../lib/cli/index.js");
 
-app.run().then((res) => {
+app.run(process.argv).then((res) => {
     if(!res) {
         return;
     }
@@ -11,4 +11,5 @@ app.run().then((res) => {
     process.stdout.write("\n");
 }).catch((err) => {
     process.stderr.write(err.message);
+    process.stdout.write("\n");
 });
