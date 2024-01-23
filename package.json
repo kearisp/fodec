@@ -1,6 +1,6 @@
 {
     "name": "fodec",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Kris Papercut <krispcut@gmail.com>",
     "description": "",
     "license": "MIT",
@@ -18,7 +18,7 @@
         "watch": "tsc --watch",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "homepage": "https://github.com/kearisp/fodec#readme",
+    "homepage": "https://kearisp.github.io/fodec",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/kearisp/fodec.git"
