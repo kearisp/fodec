@@ -1,19 +1,28 @@
 import {Cli} from "@kearisp/cli";
+import {promptText, promptSelect} from "@wocker/utils";
 import {promises as FS, existsSync, mkdirSync} from "fs";
 import Path from "path";
-import {promptText, promptSelect} from "@wocker/utils";
+
 import {Fodec} from "../Fodec";
 import {generateKey} from "../utils/generateKey";
 import {Config} from "../types/Config";
 
 
 export class App {
-    protected cli: Cli;
+    protected readonly cli: Cli;
 
     public constructor() {
         this.cli = new Cli();
 
+        this.cli.command("completion")
+            .action(() => {
+                return this.cli.completionScript();
+            });
+
         this.cli.command("init")
+            .help({
+                description: "Init"
+            })
             .action(() => this.init());
 
         this.cli.command("gen")
@@ -41,7 +50,7 @@ export class App {
         return res.toString();
     }
 
-    public async init() {
+    public async init(): Promise<void> {
         const configPath = "./fodec-2.json";
 
         if(existsSync(configPath)) {
@@ -79,7 +88,7 @@ export class App {
         await FS.writeFile(configPath, JSON.stringify(config, null, 4));
     }
 
-    public async generate() {
+    public async generate(): Promise<void> {
         const {alphabets} = await this.getConfig();
 
         const key = generateKey({
@@ -149,7 +158,7 @@ export class App {
         }
     }
 
-    public async run() {
+    public async run(): Promise<string|void> {
         return this.cli.run(process.argv);
     }
 }
