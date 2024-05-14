@@ -158,7 +158,18 @@ export class App {
         }
     }
 
-    public async run(): Promise<string|void> {
-        return this.cli.run(process.argv);
+    public async run(): Promise<void> {
+        try {
+            const res = await this.cli.run(process.argv);
+
+            if(res) {
+                process.stdout.write(res);
+                process.stdout.write("\n");
+            }
+        }
+        catch(err) {
+            process.stderr.write((err as Error).message);
+            process.stdout.write("\n");
+        }
     }
 }
