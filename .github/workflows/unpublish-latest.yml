@@ -1,0 +1,30 @@
+name: Unpublish
+
+on:
+    release:
+        types:
+          - deleted
+
+jobs:
+    unpublish:
+        name: Unpublish version
+        if: ${{ github.repository_owner == 'kearisp' }}
+        runs-on: ubuntu-latest
+        environment: publish
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Set up Node.js
+            uses: actions/setup-node@v4
+            with:
+                node-version: 22
+                registry-url: 'https://registry.npmjs.org'
+
+          - name: Delete package version
+            env:
+                NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+            run: |
+                PACKAGE_NAME=$(npm pkg get name | sed -e 's/^"//' -e 's/"$//')
+                PACKAGE_VERSION=$(npm pkg get version | sed -e 's/^"//' -e 's/"$//')
+                npm unpublish $PACKAGE_NAME@$PACKAGE_VERSION --force 2>/dev/null || npm deprecate $PACKAGE_NAME@$PACKAGE_VERSION "This version is deprecated. Why can't it be deleted?"
