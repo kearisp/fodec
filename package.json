@@ -1,6 +1,6 @@
 {
     "name": "fodec",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Kris Papercut <krispcut@gmail.com>",
     "description": "Font encoder",
     "license": "MIT",
@@ -27,14 +27,14 @@
         "url": "https://github.com/kearisp/fodec/issues"
     },
     "dependencies": {
-        "@kearisp/cli": "^2.0.0",
+        "@kearisp/cli": "^2.0.4",
         "@wocker/utils": "^1.0.2",
         "fonteditor-core": "^2.3.2",
         "fs": "^0.0.1-security",
         "path": "^0.12.7"
     },
     "devDependencies": {
-        "@types/node": "^20.11.5",
+        "@types/node": "^22.10.2",
         "typescript": "^5.3.3"
     }
 }
