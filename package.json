@@ -29,9 +29,7 @@
     "dependencies": {
         "@kearisp/cli": "^2.0.4",
         "@wocker/utils": "^1.0.2",
-        "fonteditor-core": "^2.3.2",
-        "fs": "^0.0.1-security",
-        "path": "^0.12.7"
+        "fonteditor-core": "^2.3.2"
     },
     "devDependencies": {
         "@types/node": "^22.10.2",
