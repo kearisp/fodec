@@ -1,6 +1,6 @@
 {
     "name": "fodec",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Kris Papercut <krispcut@gmail.com>",
     "description": "Font encoder",
     "license": "MIT",
@@ -13,9 +13,9 @@
         "fodec": "./bin/fodec.js"
     },
     "scripts": {
-        "prepare": "npm run build",
-        "build": "tsc --build",
-        "watch": "tsc --watch",
+        "prepublishOnly": "npm run build",
+        "build": "tsc --project tsconfig.build.json",
+        "watch": "tsc -w --project tsconfig.build.json",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "homepage": "https://kearisp.github.io/fodec",
@@ -29,9 +29,7 @@
     "dependencies": {
         "@kearisp/cli": "^2.0.4",
         "@wocker/utils": "^1.0.2",
-        "fonteditor-core": "^2.3.2",
-        "fs": "^0.0.1-security",
-        "path": "^0.12.7"
+        "fonteditor-core": "^2.3.2"
     },
     "devDependencies": {
         "@types/node": "^22.10.2",

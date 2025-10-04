@@ -11,7 +11,7 @@ export const generateKey = (options: Options): string => {
         alphabets
     } = options;
 
-    return Object.keys(MapAlphabets).reduce((res: string[], key: string) => {
+    return Object.keys(MapAlphabets).reduce<string[]>((res: string[], key: string) => {
         if(!alphabets.includes(key as AlphabetType)) {
             return res;
         }
@@ -21,7 +21,7 @@ export const generateKey = (options: Options): string => {
             lowerLength,
             upperStart,
             upperLength
-        } = MapAlphabets[key];
+        } = MapAlphabets[key as AlphabetType];
 
         const indexes = [
             ...Array.from({length: lowerLength}, (_, i) => lowerStart + i),
@@ -35,5 +35,5 @@ export const generateKey = (options: Options): string => {
             res[0] + String.fromCharCode(...indexes),
             res[1] + String.fromCharCode(...moved)
         ];
-    }, ["", ""]).join("\n");
+    }, ["", ""] as string[]).join("\n");
 };

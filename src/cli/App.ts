@@ -2,7 +2,6 @@ import {Cli} from "@kearisp/cli";
 import {promptText, promptSelect} from "@wocker/utils";
 import {promises as FS, existsSync, mkdirSync} from "fs";
 import Path from "path";
-
 import {Fodec} from "../Fodec";
 import {generateKey} from "../utils/generateKey";
 import {Config} from "../types/Config";
@@ -15,6 +14,9 @@ export class App {
         this.cli = new Cli();
 
         this.cli.command("completion")
+            .help({
+                disabled: true
+            })
             .action(() => {
                 return this.cli.completionScript();
             });
