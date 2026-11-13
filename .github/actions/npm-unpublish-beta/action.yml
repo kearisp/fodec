@@ -1,0 +1,35 @@
+name: NPM Unpublish Beta
+description: "Remove (or deprecate) beta versions of the current package version after a stable release"
+
+inputs:
+    token:
+        required: true
+        description: "npm token allowed to unpublish. Trusted publishing (OIDC) does not cover this"
+    node-version:
+        required: false
+        default: "24"
+        description: "Node.js version"
+
+runs:
+    using: "composite"
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: ${{ inputs.node-version }}
+            registry-url: 'https://registry.npmjs.org'
+
+      - name: Unpublish previous beta versions
+        shell: bash
+        env:
+            NODE_AUTH_TOKEN: ${{ inputs.token }}
+        run: |
+            PACKAGE_NAME=$(npm pkg get name | sed -e 's/^"//' -e 's/"$//')
+            PACKAGE_VERSION=$(npm pkg get version | sed -e 's/^"//' -e 's/"$//')
+            ESCAPED_VERSION=$(printf '%s' "$PACKAGE_VERSION" | sed 's/\./\\./g')
+            BETA_VERSIONS=$(npm view $PACKAGE_NAME versions --json | jq -r '.[]' | grep -E "^$ESCAPED_VERSION-beta\.[0-9]+$" || true)
+
+            for VERSION in $BETA_VERSIONS; do
+                echo "Unpublishing $PACKAGE_NAME@$VERSION"
+                npm unpublish $PACKAGE_NAME@$VERSION --force || npm deprecate $PACKAGE_NAME@$VERSION "This is the beta version. Why can't it be deleted?"
+            done

@@ -1,6 +1,6 @@
 {
     "name": "fodec",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "Kris Papercut <krispcut@gmail.com>",
     "description": "Font encoder",
     "license": "MIT",
@@ -10,11 +10,12 @@
         "cli": "./lib/cli"
     },
     "bin": {
-        "fodec": "./bin/fodec.js"
+        "fodec": "lib/main.js"
     },
     "scripts": {
         "prepublishOnly": "npm run build",
         "build": "tsc --project tsconfig.build.json",
+        "postbuild": "chmod +x ./lib/main.js",
         "watch": "tsc -w --project tsconfig.build.json",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

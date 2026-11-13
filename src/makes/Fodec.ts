@@ -1,6 +1,6 @@
 import Path from "path";
 import {promises as FS} from "fs";
-import {encodeFont} from "./utils/encodeFont";
+import {encodeFont} from "../utils/encodeFont";
 
 
 export class Fodec {

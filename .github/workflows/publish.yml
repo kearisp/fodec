@@ -1,0 +1,68 @@
+name: Publish
+
+on:
+    pull_request:
+        types:
+          - opened
+          - reopened
+          - synchronize
+        paths:
+          - src/**
+          - package.json
+          - tsconfig.json
+    release:
+        types:
+          - published
+
+jobs:
+    publish-beta:
+        name: Publish beta
+        if: ${{ github.event_name == 'pull_request' && github.repository_owner == 'kearisp' }}
+        runs-on: ubuntu-latest
+        environment: publish
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Setup beta version
+            uses: kearisp/npm-version-action@v0.0.1
+            with:
+                tag: beta
+
+          - name: Publish beta
+            uses: ./.github/actions/npm-publish
+            with:
+                tag: beta
+
+    publish-latest:
+        name: Publish latest
+        if: ${{ github.event_name == 'release' && github.repository_owner == 'kearisp' }}
+        runs-on: ubuntu-latest
+        environment: publish
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Publish latest
+            uses: ./.github/actions/npm-publish
+
+    unpublish-beta:
+        name: Unpublish beta versions
+        if: ${{ github.event_name == 'release' && github.repository_owner == 'kearisp' }}
+        runs-on: ubuntu-latest
+        environment: publish
+        needs: publish-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Unpublish beta versions
+            uses: ./.github/actions/npm-unpublish-beta
+            with:
+                token: ${{ secrets.NODE_AUTH_TOKEN }}
