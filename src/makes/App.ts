@@ -2,7 +2,7 @@ import {Cli} from "@kearisp/cli";
 import {promptText, promptSelect} from "@wocker/utils";
 import {promises as FS, existsSync, mkdirSync} from "fs";
 import Path from "path";
-import {Fodec} from "../Fodec";
+import {Fodec} from "./Fodec";
 import {generateKey} from "../utils/generateKey";
 import {Config} from "../types/Config";
 
@@ -53,7 +53,7 @@ export class App {
     }
 
     public async init(): Promise<void> {
-        const configPath = "./fodec-2.json";
+        const configPath = "./fodec.json";
 
         if(existsSync(configPath)) {
             throw new Error("Config already exists");

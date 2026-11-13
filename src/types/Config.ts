@@ -1,4 +1,7 @@
 import {AlphabetType} from "./MapAlphabets";
+import {FontResource} from "./FontResource";
+import {JsonResource} from "./JsonResource";
+
 
 export type Config = {
     basePath?: string;
@@ -11,18 +14,4 @@ export type Config = {
         path: string;
     }[];
     resources: (FontResource | JsonResource)[];
-};
-
-type FontResource = {
-    type: "font",
-    format: string;
-    name: string;
-    path: string;
-    output?: string;
-};
-
-type JsonResource = {
-    type: "json",
-    path: string;
-    output?: string;
 };

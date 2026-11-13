@@ -1,0 +1,39 @@
+name: NPM Publish
+description: "Install dependencies and publish the package to npm via OIDC trusted publishing"
+
+inputs:
+    tag:
+        required: false
+        default: ""
+        description: "npm dist-tag (e.g. beta). Empty publishes as latest"
+    node-version:
+        required: false
+        default: "24"
+        description: "Node.js version"
+
+runs:
+    using: "composite"
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: ${{ inputs.node-version }}
+            registry-url: 'https://registry.npmjs.org'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+            path: ~/.npm
+            key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+            restore-keys: |
+                ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        shell: bash
+        run: npm install
+
+      - name: Publish to NPM
+        shell: bash
+        env:
+            TAG: ${{ inputs.tag }}
+        run: npm publish --provenance ${TAG:+--tag "$TAG"}
